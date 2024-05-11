@@ -5,6 +5,42 @@ import random
 from pygame.time import Clock
 
 
+def animacao_bola(): #Animando a bola e configurando
+    global velocidade_bola_x, velocidade_bola_y, score_jogador, score_oponente, score_time, ball_speed, largura_tela, altura_tela, jogador, oponente, bola
+    
+    bola.x += velocidade_bola_x
+    bola.y += velocidade_bola_y
+    
+    if bola.top <= 0 or bola.bottom >= altura_tela:
+        velocidade_bola_y *= -1
+    
+    # Score do jogador
+    if bola.left <= 0:
+        score_time = pygame.time.get_ticks() # Só roda uma vez, 1 ponto por tempo
+        score_jogador += 1
+        #Checkando vitória
+    
+    # Score do oponente
+    if bola.right >= largura_tela:
+        score_time = pygame.time.get_ticks() 
+        score_oponente += 1
+        #Checkando vitória
+
+    if bola.colliderect(jogador) and velocidade_bola_x > 0:
+        if abs(bola.right - jogador.left) < 10:
+            velocidade_bola_x *= -1
+        elif abs(bola.bottom - jogador.top) < 10 and velocidade_bola_y > 0:
+            velocidade_bola_y *= -1
+        elif abs(bola.top - jogador.bottom) < 10 and velocidade_bola_y < 0:
+            velocidade_bola_y *= -1        
+
+    if bola.colliderect(oponente) and velocidade_bola_x < 0:
+        if abs(bola.left - oponente.right) < 10:
+            velocidade_bola_x *= -1
+        elif abs(bola.bottom - oponente.top) < 10 and velocidade_bola_y > 0:
+            velocidade_bola_y *= -1
+        elif abs(bola.top - oponente.bottom) < 10 and velocidade_bola_y < 0:
+            velocidade_bola_y *= -1 
 # Configuração do Pygame
 pygame.mixer.pre_init(44100, -16, 2 , 512) #Configurando o som
 pygame.init() #Iniciar o pygame
@@ -89,41 +125,3 @@ while True:
     # Passando para a tela final
     pygame.display.flip() 
     clock.tick(120) # frames per second (fps)
-
-
-def animacao_bola(): #Animando a bola e configurando
-    global velocidade_bola_x, velocidade_bola_y, score_jogador, score_oponente, score_time, ball_speed, largura_tela, altura_tela, jogador, oponente, bola
-    
-    bola.x += velocidade_bola_x
-    bola.y += velocidade_bola_y
-    
-    if bola.top <= 0 or bola.bottom >= altura_tela:
-        velocidade_bola_y *= -1
-    
-    # Score do jogador
-    if bola.left <= 0:
-        score_time = pygame.time.get_ticks() # Só roda uma vez, 1 ponto por tempo
-        score_jogador += 1
-        check_win()
-    
-    # Score do oponente
-    if bola.right >= largura_tela:
-        score_time = pygame.time.get_ticks() 
-        score_oponente += 1
-        check_win()
-
-    if bola.colliderect(jogador) and velocidade_bola_x > 0:
-        if abs(bola.right - jogador.left) < 10:
-            velocidade_bola_x *= -1
-        elif abs(bola.bottom - jogador.top) < 10 and velocidade_bola_y > 0:
-            velocidade_bola_y *= -1
-        elif abs(bola.top - jogador.bottom) < 10 and velocidade_bola_y < 0:
-            velocidade_bola_y *= -1        
-
-    if bola.colliderect(oponente) and velocidade_bola_x < 0:
-        if abs(bola.left - oponente.right) < 10:
-            velocidade_bola_x *= -1
-        elif abs(bola.bottom - oponente.top) < 10 and velocidade_bola_y > 0:
-            velocidade_bola_y *= -1
-        elif abs(bola.top - oponente.bottom) < 10 and velocidade_bola_y < 0:
-            velocidade_bola_y *= -1 
