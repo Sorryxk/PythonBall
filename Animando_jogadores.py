@@ -53,6 +53,19 @@ def animacao_jogador():
         jogador.top = 0
     if jogador.bottom >= altura_tela:
         jogador.bottom = altura_tela
+def animacao_oponente():
+    global velocidade_oponente, oponente, bola
+    
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_w]:
+        oponente.y -= velocidade_oponente
+    if keys[pygame.K_s]:
+        oponente.y += velocidade_oponente
+    
+    if oponente.top <= 0:
+        oponente.top = 0
+    if oponente.bottom >= altura_tela:
+        oponente.bottom = altura_tela
 # Configuração do Pygame
 pygame.mixer.pre_init(44100, -16, 2 , 512) #Configurando o som
 pygame.init() #Iniciar o pygame
