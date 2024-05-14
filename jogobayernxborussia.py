@@ -114,3 +114,138 @@ fonte_jogo = pygame.font.Font("fontes/retro_gaming/Retro Gaming.ttf", 48)
 fonte_jogo_restart = pygame.font.Font("fontes/retro_gaming/Retro Gaming.ttf", 30)
 
 score_time = True
+# Adicione uma variável global para contar as colisões
+colisoes = 0
+
+while True:
+    for evento in pygame.event.get():
+        if evento.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
+        if evento.type == pygame.KEYDOWN:
+            if evento.key == pygame.K_DOWN:
+                jogador_borussia.move_down()
+            if evento.key == pygame.K_UP:
+                jogador_borussia.move_up()
+            if evento.key == pygame.K_s:
+                jogador_bayern.move_down()
+            if evento.key == pygame.K_w:
+                jogador_bayern.move_up()
+            if evento.key == pygame.K_SPACE:
+                if jogador_borussia.rect.colliderect(bola_rect):
+                    jogador_borussia.kick()
+                if jogador_bayern.rect.colliderect(bola_rect):
+                    jogador_bayern.kick()
+        if evento.type == pygame.KEYUP:
+            if evento.key == pygame.K_DOWN:
+                jogador_borussia.stop_move_down()
+            if evento.key == pygame.K_UP:
+                jogador_borussia.stop_move_up()
+            if evento.key == pygame.K_s:
+                jogador_bayern.stop_move_down()
+            if evento.key == pygame.K_w:
+                jogador_bayern.stop_move_up()
+
+    bola_rect.x += velocidade_bola_x
+    bola_rect.y += velocidade_bola_y
+    
+    if bola_rect.top <= 0 or bola_rect.bottom >= altura_tela:
+        velocidade_bola_y *= -1
+    
+    if bola_rect.left <= 0:
+        score_time = pygame.time.get_ticks()
+        score_jogador_borussia += 1
+        # Reiniciar o contador de colisões após um gol
+        colisoes = 0
+    
+    if bola_rect.right >= largura_tela:
+        score_time = pygame.time.get_ticks() 
+        score_jogador_bayern += 1
+        # Reiniciar o contador de colisões após um gol
+        colisoes = 0
+
+    if bola_rect.colliderect(jogador_borussia.rect):
+        colisoes += 1
+        if velocidade_bola_x > 0:  
+            if abs(bola_rect.right - jogador_borussia.rect.left) < 10:
+                velocidade_bola_x *= -1
+        else:  
+            if abs(bola_rect.left - jogador_borussia.rect.right) < 10:
+                velocidade_bola_x *= -1
+
+        if abs(bola_rect.bottom - jogador_borussia.rect.top) < 10 and velocidade_bola_y > 0:
+            velocidade_bola_y *= -1
+        elif abs(bola_rect.top - jogador_borussia.rect.bottom) < 10 and velocidade_bola_y < 0:
+            velocidade_bola_y *= -1
+        jogador_borussia.kick()
+
+    if bola_rect.colliderect(jogador_bayern.rect):
+        colisoes += 1
+        if velocidade_bola_x < 0:  
+            if abs(bola_rect.left - jogador_bayern.rect.right) < 10:
+                velocidade_bola_x *= -1
+        else:  
+            if abs(bola_rect.right - jogador_bayern.rect.left) < 10:
+                velocidade_bola_x *= -1
+
+        if abs(bola_rect.bottom - jogador_bayern.rect.top) < 10 and velocidade_bola_y > 0:
+            velocidade_bola_y *= -1
+        elif abs(bola_rect.top - jogador_bayern.rect.bottom) < 10 and velocidade_bola_y < 0:
+            velocidade_bola_y *= -1
+        jogador_bayern.kick()
+
+    jogador_borussia.update(score_jogador_borussia - score_jogador_bayern)
+    jogador_bayern.update(score_jogador_bayern - score_jogador_borussia)
+    
+    if colisoes >= 5:
+        bola_rect = bola_fogo_baixo.get_rect(center=bola_rect.center)
+        velocidade_bola_x *= 1.0005
+        velocidade_bola_y *= 1.0005
+        
+        
+    else:
+        bola_rect = bola_normal.get_rect(center=bola_rect.center)
+
+    tela.blit(fundo, (0, 0))
+    tela.blit(jogador_borussia.image, jogador_borussia.rect)
+    tela.blit(jogador_bayern.image, jogador_bayern.rect)
+    if colisoes >= 5:
+        tela.blit(bola_fogo_baixo, bola_rect)
+    else:
+        tela.blit(bola_normal, bola_rect)
+    pygame.draw.aaline(tela, branco, (largura_tela/2,0), (largura_tela/2, altura_tela))
+    
+    if score_jogador_borussia >= 10:
+        import tela_final_borussia
+        tela_final_borussia.borussia()
+    elif score_jogador_bayern >= 10:
+        import tela_final_bayern
+        tela_final_bayern.bayern()
+    if score_time:
+        tempo_atual = pygame.time.get_ticks()
+        bola_rect.center = (largura_tela / 2, altura_tela / 2)
+        
+        if tempo_atual - score_time < 700:
+            numero_tres = fonte_jogo_restart.render("3", False, preto)
+            tela.blit(numero_tres, (largura_tela / 2 - 10, altura_tela/2 + 20))
+        if 700 < tempo_atual - score_time < 1400:
+            numero_dois = fonte_jogo_restart.render("2", False, preto)
+            tela.blit(numero_dois, (largura_tela / 2 - 10, altura_tela/2 + 20))
+        if 1400 < tempo_atual - score_time < 2100:
+            numero_um = fonte_jogo_restart.render("1", False, preto)
+            tela.blit(numero_um, (largura_tela / 2 - 10, altura_tela/2 + 20))
+        
+        if tempo_atual - score_time < 2100:
+            velocidade_bola_x, velocidade_bola_y = 0,0
+        else:
+            velocidade_bola_y = 7 * random.choice((1,-1))
+            velocidade_bola_x = 7 *  random.choice((1,-1))
+            score_time = None
+        
+    texto_jogador_borussia = fonte_jogo.render(f'{score_jogador_borussia}', False, preto)
+    tela.blit(texto_jogador_borussia, (largura_tela // 2 +40 , 20))  # Centralizando o placar
+    texto_jogador_bayern = fonte_jogo.render(f'{score_jogador_bayern}', False, preto)
+    tela.blit(texto_jogador_bayern, (largura_tela // 2 - 75, 20))  # Centralizando o placar
+    
+    pygame.display.flip()
+    clock.tick(120)
