@@ -1,4 +1,4 @@
-def bayern():
+def barcelona():
     import pygame
     import sys
     import telainicio
