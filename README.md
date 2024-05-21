@@ -5,6 +5,7 @@ PARA JOGAR O PYTHONBALL:
 -pyinstaller --onefile -w jogofinal.py 
 
 -COMO INSTALAR O JOGO ?
+
 1.Baixe os arquivos disponibilizados no Github (Nome dos Arquivos:telainicio.py, tela_final_barcelona.py, tela_final_real.py, tela_final_bayern.py, tela_final_borussia.py) ou apenas clone o repositório, é uma maneira mais simples e sem chance de erros.
 
 2.Coloque eles em algum sistema que suporte a linguagem Python.
