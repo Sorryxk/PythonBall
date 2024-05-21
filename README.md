@@ -29,7 +29,7 @@ ANTES DE COMEÇAR SUA PARTIDA DE GRANDES CLÁSSICOS EUROPEUS, É PRESCISO SABER 
     encerrar o jogo PYTHONBALL.
 9. REGRA MAIS IMPORTANTE : DIVERTA-SE !!
 COMO FAZER A INSTALAÇÃO DO JOGO:
-1.Baixe os arquivos disponibilizados no Github (Nome dos Arquivos:telainicio.py, tela_final_barcelona.py, tela_final_real.py, tela_final_bayern.py, tela_final_borussia.py).
+1.Baixe os arquivos disponibilizados no Github (Nome dos Arquivos:telainicio.py, tela_final_barcelona.py, tela_final_real.py, tela_final_bayern.py, tela_final_borussia.py) ou apenas clone o repositório, é uma maneira mais simples e sem chance de erros.
 2.Coloque eles em algum sistema que suporte a linguagem Python.
 3.Quando estiver já com um sistema como o VSCODE aberto crie um terminal.
 4.Instale a biblioteca do pygame com o comando: pip install pygame.
