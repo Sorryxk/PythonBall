@@ -1,6 +1,17 @@
 import pygame
 import sys
 import random
+
+
+def play_background_music(sound_file):
+    pygame.mixer.music.load(sound_file)
+    pygame.mixer.music.play(-1)
+
+
+def play_sound(sound_file):
+    pygame.mixer.music.load(sound_file)
+    pygame.mixer.music.play()
+
 def realxbarca():
     class Player(pygame.sprite.Sprite):
         def __init__(self, image_paths, pos_x, pos_y, screen_height):
@@ -80,7 +91,9 @@ def realxbarca():
     pygame.mixer.pre_init(44100, -16, 2, 512)
     pygame.init()
     clock = pygame.time.Clock()
-
+    score_sound = "sons/olha-o-gol.mp3"
+    background_music = "sons/Hino da UEFA Champions League - (Letra e Tradução PT-BR).mp3"
+    
     largura_tela = 1250
     altura_tela = 760
     tela = pygame.display.set_mode((largura_tela, altura_tela))
@@ -155,12 +168,14 @@ def realxbarca():
         if bola_rect.left <= 0:
             score_time = pygame.time.get_ticks()
             score_jogador_barcelona += 1
+            play_sound(score_sound)
             # Reiniciar o contador de colisões após um gol
             colisoes = 0
         
         if bola_rect.right >= largura_tela:
             score_time = pygame.time.get_ticks() 
             score_jogador_real += 1
+            play_sound(score_sound)
             # Reiniciar o contador de colisões após um gol
             colisoes = 0
 
@@ -241,6 +256,7 @@ def realxbarca():
                 velocidade_bola_y = 7 * random.choice((1,-1))
                 velocidade_bola_x = 7 *  random.choice((1,-1))
                 score_time = None
+                play_background_music(background_music)
             
         texto_jogador_real = fonte_jogo.render(f'{score_jogador_barcelona}', False, preto)
         tela.blit(texto_jogador_real, (largura_tela // 2 +40 , 20))  # Centralizando o placar
