@@ -5,12 +5,12 @@ class Player(pygame.sprite.Sprite):
     def __init__(self, pos_x, pos_y):
         super().__init__()
         self.sprites_up = [
-            pygame.transform.scale(pygame.image.load('personagens/barcelona_cima.jpg'), (50, 50)),
-            pygame.transform.scale(pygame.image.load('personagens/barcelona_correndo_cima.jpg'), (50, 50))
+            pygame.transform.scale(pygame.image.load('personagens/barcelona_cima.png'), (50, 50)),
+            pygame.transform.scale(pygame.image.load('personagens/barcelona_correndo_cima_direita.png'), (50, 50))
         ]
         self.sprites_down = [
-            pygame.transform.scale(pygame.image.load('personagens/barcelona_baixo.jpg'), (50, 50)),
-            pygame.transform.scale(pygame.image.load('personagens/barcelona_correndo_baixo.jpg'), (50, 50))
+            pygame.transform.scale(pygame.image.load('personagens/barcelona_baixo.png'), (50, 50)),
+            pygame.transform.scale(pygame.image.load('personagens/barcelona_correndo_baixo_direita.png'), (50, 50))
         ]
         self.current_sprite = 0
         self.image = self.sprites_down[self.current_sprite]
