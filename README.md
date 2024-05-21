@@ -3,7 +3,29 @@ PARA JOGAR O PYTHONBALL:
 -pip install pygame
 -pip install pyinstaller
 -pyinstaller --onefile -w jogofinal.py 
-ANTES DE COMEÇAR SUA PARTIDA DE GRANDES CLÁSSICOS EUROPEUS, É PRESCISO SABER DAS SEGUINTES REGRAS DO JOGO:
+
+-COMO INSTALAR O JOGO ?
+1.Baixe os arquivos disponibilizados no Github (Nome dos Arquivos:telainicio.py, tela_final_barcelona.py, tela_final_real.py, tela_final_bayern.py, tela_final_borussia.py) ou apenas clone o repositório, é uma maneira mais simples e sem chance de erros.
+
+2.Coloque eles em algum sistema que suporte a linguagem Python.
+
+3.Quando estiver já com um sistema como o VSCODE aberto crie um terminal.
+
+4.Instale a biblioteca do pygame com o comando: pip install pygame.
+
+5.Por fim baixe todas as imagens disponibizadas no github, com seus respectivos nomes.
+
+6.Rode e aproveite ao máximo o jogo!!!
+
+-CRIAR UM EXECUTÁVEL (OPCIONAL):
+
+1.Baixe a biblioteca do pyinstaller, utilize o comando no terminal, pip install pyinstaller .
+
+2.Após isso em um outro terminal digite: pyinstaller --onefile -w jogofinal.py .
+
+3.Caso você tenha mudado o nome do arquivo jogofinal.py no github é só alterar o final do seu comando para o nome do arquivo desejado.
+     
+-ANTES DE COMEÇAR SUA PARTIDA DE GRANDES CLÁSSICOS EUROPEUS, É PRESCISO SABER DAS SEGUINTES REGRAS DO JOGO:
 
 1.Primeiramente aperte a tecla "espaço" para iniciar o jogo.
 
@@ -28,16 +50,4 @@ ANTES DE COMEÇAR SUA PARTIDA DE GRANDES CLÁSSICOS EUROPEUS, É PRESCISO SABER 
    -Após a determinação do vencedor ,clique no botão RESTART localizado á esquerda da tela para reiniciar o jogo ou clique na botão EXIT á direita da tela para 
     encerrar o jogo PYTHONBALL.
 9. REGRA MAIS IMPORTANTE : DIVERTA-SE !!
-COMO FAZER A INSTALAÇÃO DO JOGO:
-1.Baixe os arquivos disponibilizados no Github (Nome dos Arquivos:telainicio.py, tela_final_barcelona.py, tela_final_real.py, tela_final_bayern.py, tela_final_borussia.py) ou apenas clone o repositório, é uma maneira mais simples e sem chance de erros.
-2.Coloque eles em algum sistema que suporte a linguagem Python.
-3.Quando estiver já com um sistema como o VSCODE aberto crie um terminal.
-4.Instale a biblioteca do pygame com o comando: pip install pygame.
-5.Por fim baixe todas as imagens disponibizadas no github, com seus respectivos nomes.
-6.Rode e aproveite ao máximo o jogo!!!
-CRIAR UM EXECUTÁVEL (OPCIONAL):
-1.Baixe a biblioteca do pyinstaller, utilize o comando no terminal, pip install pyinstaller .
-2.Após isso em um outro terminal digite: pyinstaller --onefile -w jogofinal.py .
-3.Caso você tenha mudado o nome do arquivo jogofinal.py no github é só alterar o final do seu comando para o nome do arquivo desejado.
-     
 
