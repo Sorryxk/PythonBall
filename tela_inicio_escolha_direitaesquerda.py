@@ -62,11 +62,11 @@ while True:
             area_esquerda, area_direita = criar_areas_clicaveis()
             if ponto_na_area(evento.pos, area_esquerda):
               # jogo borussia vs bayern e   
-              import main
+              import jogobayernxborussia
               #  main()
             elif ponto_na_area(evento.pos, area_direita):
                 #jogo real vs barcelona
-                main()
+                jogobayernxborussia()
 
     # Desenha a imagem atual na tela
     desenhar_imagem()
