@@ -1,6 +1,15 @@
 import pygame
 import sys
 import random
+
+def play_sound(sound_file):
+    pygame.mixer.music.load(sound_file)
+    pygame.mixer.music.play()
+
+def play_background_music(sound_file):
+    pygame.mixer.music.load(sound_file)
+    pygame.mixer.music.play(-1)
+
 def bayernxboru():
     class Player(pygame.sprite.Sprite):
         def __init__(self, image_paths, pos_x, pos_y, screen_height):
@@ -80,7 +89,9 @@ def bayernxboru():
     pygame.mixer.pre_init(44100, -16, 2, 512)
     pygame.init()
     clock = pygame.time.Clock()
-
+    score_sound = "sons/olha-o-gol.mp3"
+    background_music = "sons/Hino da UEFA Champions League - (Letra e Tradução PT-BR).mp3"
+    
     largura_tela = 1250
     altura_tela = 760
     tela = pygame.display.set_mode((largura_tela, altura_tela))
@@ -117,7 +128,8 @@ def bayernxboru():
 
     # Adicione uma variável global para contar as colisões
     colisoes = 0
-
+    contador = 3
+    contador_tempo = 0
     while True:
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:
@@ -149,19 +161,50 @@ def bayernxboru():
 
         bola_rect.x += velocidade_bola_x
         bola_rect.y += velocidade_bola_y
-        
+    # Processamento de eventos
+        for evento in pygame.event.get():
+            if evento.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+    # Lógica do contador
+        if score_time:
+            tempo_atual = pygame.time.get_ticks()
+            bola_rect.center = (largura_tela / 2, altura_tela / 2)
+
+            if tempo_atual - score_time < 700:
+                contador = 3
+            elif 700 < tempo_atual - score_time < 1400:
+                contador = 2
+            elif 1400 < tempo_atual - score_time < 2100:
+                contador = 1
+            else:
+                contador = 0
+
+            # Se passou o tempo do contador, inicie o jogo
+            if tempo_atual - score_time >= 2100:
+                velocidade_bola_y = 7 * random.choice((1, -1))
+                velocidade_bola_x = 7 * random.choice((1, -1))
+                score_time = None
+                play_background_music(background_music)
+
+        # Renderização do contador
+        if contador > 0:
+            numero_contador = fonte_jogo_restart.render(str(contador), False, preto)
+            tela.blit(numero_contador, (largura_tela / 2 - 10, altura_tela/2+20))
         if bola_rect.top <= 0 or bola_rect.bottom >= altura_tela:
             velocidade_bola_y *= -1
         
         if bola_rect.left <= 0:
             score_time = pygame.time.get_ticks()
             score_jogador_borussia += 1
+            play_sound(score_sound)
             # Reiniciar o contador de colisões após um gol
             colisoes = 0
         
         if bola_rect.right >= largura_tela:
             score_time = pygame.time.get_ticks() 
             score_jogador_bayern += 1
+            play_sound(score_sound)
             # Reiniciar o contador de colisões após um gol
             colisoes = 0
 
@@ -226,7 +269,10 @@ def bayernxboru():
             tempo_atual = pygame.time.get_ticks()
             bola_rect.center = (largura_tela / 2, altura_tela / 2)
             
-            if tempo_atual - score_time < 700:
+            if tempo_atual - score_time < 500:
+                numero_quatro = fonte_jogo_restart.render("4", False, preto)
+                tela.blit(numero_quatro, (largura_tela / 2 - 10, altura_tela/2 + 20))
+            if 500 < tempo_atual - score_time < 700:
                 numero_tres = fonte_jogo_restart.render("3", False, preto)
                 tela.blit(numero_tres, (largura_tela / 2 - 10, altura_tela/2 + 20))
             if 700 < tempo_atual - score_time < 1400:
@@ -248,5 +294,5 @@ def bayernxboru():
         texto_jogador_bayern = fonte_jogo.render(f'{score_jogador_bayern}', False, preto)
         tela.blit(texto_jogador_bayern, (largura_tela // 2 - 75, 20))  # Centralizando o placar
         
-        pygame.display.flip()
+        pygame.display.flip()   
         clock.tick(120)
