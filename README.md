@@ -59,3 +59,6 @@ PARA JOGAR O PYTHONBALL:
    
 10. REGRA MAIS IMPORTANTE : DIVERTA-SE !!
 
+
+LINK DO VÍDEO DO JOGO:
+https://www.youtube.com/watch?v=y-WZpTRFeEg
