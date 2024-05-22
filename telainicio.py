@@ -1,12 +1,13 @@
+import pygame
+import sys
+
 def inicio():
-    import pygame
-    import sys
     # Inicialize o Pygame
     pygame.init()
 
     # Defina as dimensões da tela
-    largura_tela = 1250
-    altura_tela = 760
+    largura_tela = 1280
+    altura_tela = 920
     tela = pygame.display.set_mode((largura_tela, altura_tela))
     pygame.display.set_caption("Exibição de Imagens")
 
@@ -16,7 +17,7 @@ def inicio():
         return pygame.transform.scale(imagem, (largura_tela, altura_tela))
 
     # Carregue as imagens que você deseja exibir
-    imagens = ["personagens/Ini.jpg", "personagens/Time.jpg"]
+    imagens = ["personagens/Ini.jpg", "personagens/Escolhapartida.jpg.png"]
     num_imagens = len(imagens)
     indice_imagem_atual = 0
     imagem_atual = carregar_imagem(imagens[indice_imagem_atual])
@@ -42,6 +43,10 @@ def inicio():
 
     # Variável para controlar se já passou da primeira imagem
     passou_da_primeira_imagem = False
+
+    # Carregue o áudio de fundo
+    pygame.mixer.music.load("sons/Hino da UEFA Champions League - (Letra e Tradução PT-BR).mp3")
+    pygame.mixer.music.play(-1)  # -1 para reprodução em loop
 
     # Loop principal do jogo
     while True:
