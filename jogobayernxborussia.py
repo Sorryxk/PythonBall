@@ -90,7 +90,7 @@ def bayernxboru():
     pygame.init()
     clock = pygame.time.Clock()
     score_sound = "sons/olha-o-gol.mp3"
-    background_music = "sons/Hino da UEFA Champions League - (Letra e Tradução PT-BR).mp3"
+    background_music = "sons/Funk da Champions League.mp3"
     
     largura_tela = 1250
     altura_tela = 760
