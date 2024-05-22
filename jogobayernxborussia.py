@@ -121,8 +121,8 @@ def bayernxboru():
 
     score_jogador_borussia = 0
     score_jogador_bayern = 0
-    fonte_jogo = pygame.font.Font("fontes/retro_gaming/Retro Gaming.ttf", 48)
-    fonte_jogo_restart = pygame.font.Font("fontes/retro_gaming/Retro Gaming.ttf", 30)
+    fonte_jogo = pygame.font.Font("fonte/Retro Gaming.ttf", 48)
+    fonte_jogo_restart = pygame.font.Font("fonte/Retro Gaming.ttf", 30)
 
     score_time = True
 
