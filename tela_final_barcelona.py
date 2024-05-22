@@ -32,7 +32,7 @@ def barcelona():
         return pygame.transform.scale(imagem, (largura_tela, altura_tela))
 
     # Carregue as imagens que você deseja exibir
-    imagens = ["personagens/bayerntelafinal.png"]
+    imagens = ["personagens/barcelonatelafinal.png"]
     num_imagens = len(imagens)
     indice_imagem_atual = 0
     imagem_atual = carregar_imagem(imagens[indice_imagem_atual])
