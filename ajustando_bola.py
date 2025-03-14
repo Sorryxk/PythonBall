@@ -6,43 +6,52 @@ from pygame.time import Clock
 
 
 
-def animacao_bola(): #Animando a bola e configurando
-    global velocidade_bola_x, velocidade_bola_y, score_jogador, score_oponente, score_time, ball_speed, largura_tela, altura_tela, jogador, oponente, bola
+def animacao_bola():
+    global velocidade_bola_x, velocidade_bola_y, score_jogador, score_oponente, score_time, ball_speed, jogador, oponente, bola  # ← Garantir todos os globais
     
+    # Movimento da bola (original)
     bola.x += velocidade_bola_x
     bola.y += velocidade_bola_y
     
+    # Colisão com bordas (original)
     if bola.top <= 0 or bola.bottom >= altura_tela:
         velocidade_bola_y *= -1
     
-    # Score do jogador
+    # Sistema de pontuação (original)
     if bola.left <= 0:
-        score_time = pygame.time.get_ticks() # Só roda uma vez, 1 ponto por tempo
+        score_time = pygame.time.get_ticks()
         score_jogador += 1
         check_win()
-    
-    # Score do oponente
     if bola.right >= largura_tela:
-        score_time = pygame.time.get_ticks() 
+        score_time = pygame.time.get_ticks()
         score_oponente += 1
         check_win()
 
-    if bola.colliderect(jogador) and velocidade_bola_x > 0:
-        if abs(bola.right - jogador.left) < 10:
-            velocidade_bola_x *= -1
-        elif abs(bola.bottom - jogador.top) < 10 and velocidade_bola_y > 0:
-            velocidade_bola_y *= -1
-        elif abs(bola.top - jogador.bottom) < 10 and velocidade_bola_y < 0:
-            velocidade_bola_y *= -1        
+    #parte adicionada para conseguir funcionar
+    velocidade_bola_x, velocidade_bola_y = handle_paddle_collision(jogador, bola, velocidade_bola_x, velocidade_bola_y)
+    velocidade_bola_x, velocidade_bola_y = handle_paddle_collision(oponente, bola, velocidade_bola_x, velocidade_bola_y)    
 
-    if bola.colliderect(oponente) and velocidade_bola_x < 0:
-        if abs(bola.left - oponente.right) < 10:
-            velocidade_bola_x *= -1
-        elif abs(bola.bottom - oponente.top) < 10 and velocidade_bola_y > 0:
-            velocidade_bola_y *= -1
-        elif abs(bola.top - oponente.bottom) < 10 and velocidade_bola_y < 0:
-            velocidade_bola_y *= -1 
+  # Funções especializadas (adicionadas em novas linhas)
+def update_ball_movement():
+    global velocidade_bola_x, velocidade_bola_y
+    bola.x += velocidade_bola_x
+    bola.y += velocidade_bola_y
+    if bola.top <= 0 or bola.bottom >= altura_tela:
+        velocidade_bola_y *= -1
 
+# Nova função adicionada para simplificar
+def handle_paddle_collision(paddle, ball, velocity_x, velocity_y):
+    global bola
+    if ball.colliderect(paddle):
+        if abs(ball.right - paddle.left) < 10 and velocity_x > 0:
+            velocity_x *= -1
+        elif abs(ball.left - paddle.right) < 10 and velocity_x < 0:
+            velocity_x *= -1
+        if abs(ball.bottom - paddle.top) < 10 and velocity_y > 0:
+            velocity_y *= -1
+        elif abs(ball.top - paddle.bottom) < 10 and velocity_y < 0:
+            velocity_y *= -1
+    return velocity_x, velocity_y
 
 
 def animacao_jogador():
